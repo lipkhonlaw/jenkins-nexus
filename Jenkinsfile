@@ -25,6 +25,11 @@ pipeline {
                 }
             }
         }
+        stage("OSS Index") {
+            steps {
+                sh "mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:audit -f pom.xml"
+            }
+        }       
         stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
@@ -58,11 +63,6 @@ pipeline {
                         error "*** File: ${artifactPath}, could not be found";
                     }
                 }
-            }
-        }
-        stage("OSS Index") {
-            steps {
-                sh "mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:audit -f pom.xml"
             }
         }
     }
