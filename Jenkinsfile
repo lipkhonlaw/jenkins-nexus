@@ -60,5 +60,10 @@ pipeline {
                 }
             }
         }
+        stage("OSS Index") {
+            steps {
+                sh "mvn org.sonatype.ossindex.maven:ossindex-maven-plugin:audit -f pom.xml"
+            }
+        }
     }
 }
